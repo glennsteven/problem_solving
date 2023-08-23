@@ -26,4 +26,10 @@ func main() {
 	res := isValidParentheses("()[]")
 	fmt.Println("Valid Parentheses: ", res)
 	//=============== Valid Parentheses ===============
+
+	//=============== Single Number ===============
+	arr := []int{1, 1, 2, 3, 3}
+	isSingleNumber := singleNumber(arr)
+	fmt.Println("isSingleNumber: ", isSingleNumber)
+	//=============== Single Number ===============
 }

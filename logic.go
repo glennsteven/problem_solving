@@ -97,3 +97,12 @@ func isValidParentheses(s string) bool {
 	}
 	return len(stack) == 0
 }
+
+func singleNumber(nums []int) int {
+	result := 0
+	for i := 0; i < len(nums); i++ {
+		// ^= used XoR bitwise
+		result ^= nums[i]
+	}
+	return result
+}
