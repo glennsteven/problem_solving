@@ -1,4 +1,4 @@
-package practice_grup_biru
+package main
 
 import (
 	"fmt"
@@ -75,4 +75,25 @@ func Solution4(N int, itemList [][]int, M int, query [][]int) {
 		}
 		fmt.Println("RESULT-3: ", totalItem)
 	}
+}
+
+func isValidParentheses(s string) bool {
+	stack := make([]rune, 0)
+	C := map[rune]rune{
+		'}': '{',
+		')': '(',
+		']': '[',
+	}
+
+	for _, char := range s {
+		if char == '(' || char == '[' || char == '{' {
+			stack = append(stack, char)
+		} else if char == ')' || char == ']' || char == '}' {
+			if len(stack) == 0 || stack[len(stack)-1] != C[char] {
+				return false
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+	return len(stack) == 0
 }
