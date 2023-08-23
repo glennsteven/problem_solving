@@ -1,4 +1,4 @@
-package practice_grup_biru
+package main
 
 import "fmt"
 
@@ -21,4 +21,9 @@ func main() {
 	query := [][]int{{5, 5, 2, 2}, {4, 7, 5, 7}, {4, 8, 2, 7}}
 	Solution4(N, itemList, M, query)
 	//=============== No 4 ===============
+
+	//=============== Valid Parentheses ===============
+	res := isValidParentheses("()[]")
+	fmt.Println("Valid Parentheses: ", res)
+	//=============== Valid Parentheses ===============
 }
