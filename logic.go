@@ -106,3 +106,24 @@ func singleNumber(nums []int) int {
 	}
 	return result
 }
+
+func removeElement(nums []int, val int) int {
+	//first, check length array of int
+	//if length array of int less than zero
+	//return 0
+	if len(nums) <= 0 {
+		return 0
+	}
+
+	//we initiate value i = 0
+	i := 0
+	for _, num := range nums {
+		if num != val {
+			//iteration i when num(index of array) != val (Values to be removed from the array elements)
+			nums[i] = num
+			i++
+		}
+	}
+
+	return i
+}

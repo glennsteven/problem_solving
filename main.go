@@ -32,4 +32,11 @@ func main() {
 	isSingleNumber := singleNumber(arr)
 	fmt.Println("isSingleNumber: ", isSingleNumber)
 	//=============== Single Number ===============
+
+	//=============== Remove Element ===============
+	element := []int{1, 2, 2, 4}
+	remove := 2
+	resRemoveElement := removeElement(element, remove)
+	fmt.Println("RemoveElement: ", resRemoveElement)
+	//=============== Remove Element ===============
 }
