@@ -39,4 +39,33 @@ func main() {
 	resRemoveElement := removeElement(element, remove)
 	fmt.Println("RemoveElement: ", resRemoveElement)
 	//=============== Remove Element ===============
+
+	maxValue := []int{2, 1, 7, 6}
+	findMax := FindMaxValue(maxValue)
+	fmt.Println(findMax)
+
+	quantity := []int32{10, 10, 8, 9, 1}
+	getRes := getMaximumAmount(quantity, 6)
+	fmt.Println(getRes)
+
+	quantitys := []int32{8, 8, 8, 8}
+	ress := getMaximumAmount(quantitys, 4)
+	fmt.Println(ress)
+
+	op := []string{
+		"1 1",
+		"3",
+		"1 12",
+		"2",
+		"3",
+		"1 10",
+		"3"}
+	result := getMax(op)
+	fmt.Println(result)
+
+	convert := convertTemperature(36.50)
+	fmt.Println(convert)
+
+	reverse := reverseInt(123)
+	fmt.Println(reverse)
 }

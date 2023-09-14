@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -126,4 +128,189 @@ func removeElement(nums []int, val int) int {
 	}
 
 	return i
+}
+
+// FindMaxValue Interview User, Live Coding Bank Aladdin
+func FindMaxValue(arr []int) int {
+	max := arr[0]
+
+	for i := 0; i < len(arr); i++ {
+		if max < arr[i] {
+			max = arr[i]
+		}
+	}
+
+	return max
+}
+
+func FindSecondMaxValue(arr []int, sMax int) int {
+	max := arr[0]
+	for i := 0; i < len(arr); i++ {
+		if max < arr[i] {
+			sMax = max
+			max = arr[i]
+		}
+
+		if sMax < arr[i] && arr[i] < max {
+
+		}
+	}
+
+	return sMax
+}
+
+// Pembeli = 6 orang
+// [10, 10, 8, 9, 1] -> Desc
+// Pembeli ->1
+// Barang
+// 	A , B , C, D, E
+// [10, 10, 9, 8, 1] -> total jenis barang 5
+//		Ambil index paling mahal -> [0]
+//		Ambil barang A (10-1), sisa barang A -> 9
+// Revenue = 10
+// Pembeli ->2
+// Barang
+// 	A, B , C, D, E
+// [9, 10, 9, 8, 1] -> total jenis barang 5
+//		 B , A, C, D, E
+// Sort [10, 9, 9, 8, 1]
+//		Ambil index paling mahal -> [0]
+//		Ambil Barang B (10-1), sisa barang B -> 9
+// Revenue = 20
+// Pembeli ->3
+// Barang
+// 	A, B, C, D, E
+// [9, 9, 9, 8, 1] -> total jenis barang 5
+//		 A, B, C, D, E
+// Sort [9, 9, 9, 8, 1]
+//		Ambil index paling mahal -> [0]
+//		Ambil Barang A (9-1), sisa barang A -> 8
+// Revenue = 29
+// Pembeli ->4
+// Barang
+// 	A, B, C, D, E
+// [8, 9, 9, 8, 1] -> total jenis barang 5
+//		 B, C, A, D, E
+// Sort [9, 9, 8, 8, 1]
+//		Ambil index paling mahal -> [0]
+//		Ambil Barang B (9-1), sisa barang B -> 8
+// Revenue = 38
+// Pembeli ->5
+// Barang
+// 	A, B, C, D, E
+// [8, 8, 9, 8, 1] -> total jenis barang 5
+//		 C, B, A, D, E
+// Sort [9, 8, 8, 8, 1]
+//		Ambil index paling mahal -> [0]
+//		Ambil Barang C (9-1), sisa barang C -> 8
+// Revenue = 47
+// Pembeli ->6
+// Barang
+// 	A, B, C, D, E
+// [8, 8, 8, 8, 1] -> total jenis barang 5
+//		 A, B, C, D, E
+// Sort [8, 8, 8, 8, 1]
+//		Ambil index paling mahal -> [0]
+//		Ambil Barang A (9-1), sisa barang A -> 7
+// Revenue = 55
+
+func getMaximumAmount(quantity []int32, m int32) int64 {
+	sort.Slice(quantity, func(i, j int) bool {
+		return quantity[i] > quantity[j]
+	})
+
+	var revenue int64
+	for i := 0; i < int(m); i++ {
+		revenue += int64(quantity[0])
+		quantity[0]--
+		sort.Slice(quantity, func(i, j int) bool {
+			return quantity[i] > quantity[j]
+		})
+	}
+
+	return revenue
+}
+
+// 1 x  -Push the element x into the stack.
+// 2    -Delete the element present at the top of the stack.
+// 3    -Print the maximum element in the stack.
+
+// stack []
+// n = 10
+// 1 97 -> 1 push data ke stack
+// stack -> [97]
+// 2 -> delete data di stack
+// stack -> []
+// 1 20 -> push data ke stack
+// stack -> [20]
+// 2 -> delete data di stack
+// stack -> []
+// 1 26 -> push data ke stack
+// stack -> [26]
+// 1 20 -> push data ke stack
+// stack -> [20,26]
+// 2 -> delete data di stack
+// stack -> [26]
+// 3 -> print nilai max di stack = 26
+// 1 91 -> push data ke stack
+// stack -> [91,26]
+// 3 -> print nilai max di stack = 91
+func getMax(operations []string) []int32 {
+	var (
+		stack  []int32
+		result []int32
+	)
+
+	for i := 0; i < len(operations); i++ {
+		op := strings.Fields(operations[i])
+		fmt.Println("FIELD", op)
+		if len(op) > 0 {
+			switch op[0] {
+			case "1":
+				if len(op) > 1 {
+					max, _ := strconv.Atoi(op[1])
+					stack = append(stack, int32(max))
+				}
+			case "2":
+				if len(stack) > 0 {
+					stack = stack[:len(stack)-1]
+				}
+			case "3":
+				if len(stack) > 0 {
+					max := stack[0]
+					for m := 0; m < len(stack); m++ {
+						if max < stack[m] {
+							max = stack[m]
+						}
+					}
+					result = append(result, max)
+				}
+			default:
+				fmt.Printf("Invalid operation: %s\n", operations[i])
+			}
+		}
+	}
+
+	return result
+}
+
+func convertTemperature(celsius float64) []float64 {
+	var output []float64
+
+	kelvin := celsius + 273.15
+	output = append(output, kelvin)
+	fahrenheit := (celsius * 1.80) + 32.00
+	output = append(output, fahrenheit)
+
+	return output
+}
+
+func reverseInt(x int) int {
+	res := 0
+	for x > 0 || x < 0 {
+		mod := x % 10
+		res = (res * 10) + mod
+		x /= 10
+	}
+	return res
 }
