@@ -68,4 +68,33 @@ func main() {
 
 	reverse := reverseInt(123)
 	fmt.Println(reverse)
+
+	nums1 := []int{2, 2, 4}
+	result1 := majorityElement(nums1)
+	fmt.Println(result1)
+	list := &List{}
+
+	list.Add(1)
+	list.Add(4)
+	list.Add(6)
+	list.Add(4)
+	list.Add(4)
+
+	fmt.Println("initial list: ")
+	printList(list)
+
+	list.Remove(4)
+	fmt.Println("List after removing 2: ")
+	printList(list)
+
+	//Traverse LinkedList
+	list.Print()
+
+	// Search LinkedList
+	search := list.Search(9)
+	fmt.Println("Find: ", search)
+
+	// Parsing Value from romawi to int
+	roman := romanToInt("MCMXCIV")
+	fmt.Println(roman)
 }

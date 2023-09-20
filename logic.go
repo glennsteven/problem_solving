@@ -314,3 +314,138 @@ func reverseInt(x int) int {
 	}
 	return res
 }
+
+func majorityElement(nums []int) int {
+	sort.Slice(nums, func(i, j int) bool {
+		return nums[i] < nums[j]
+	})
+
+	count := 1
+	flagging := 1
+	mayoritas := nums[0]
+
+	for i := 1; i < len(nums); i++ {
+		if nums[i] == nums[i-1] {
+			count++
+		} else {
+			count = 1
+		}
+		if count > flagging {
+			flagging = count
+			mayoritas = nums[i]
+		}
+	}
+
+	return mayoritas
+}
+
+type Node struct {
+	Val  int
+	Next *Node
+}
+
+type List struct {
+	Head *Node
+}
+
+func (l *List) Add(value int) {
+	newMode := &Node{
+		Val:  value,
+		Next: nil,
+	}
+
+	if l.Head == nil {
+		l.Head = newMode
+		return
+	}
+
+	curr := l.Head
+	for curr.Next != nil {
+		curr = curr.Next
+	}
+
+	curr.Next = newMode
+}
+
+func (l *List) Remove(val int) {
+	if l.Head == nil {
+		return
+	}
+
+	if l.Head.Val == val {
+		l.Head = l.Head.Next
+		return
+	}
+	curr := l.Head
+	for curr.Next != nil && curr.Next.Val != val {
+		curr = curr.Next
+	}
+
+	if curr.Next != nil {
+		curr.Next = curr.Next.Next
+	}
+}
+
+func printList(l *List) {
+	curr := l.Head
+	for curr != nil {
+		fmt.Printf("%d -> ", curr.Val)
+		curr = curr.Next
+	}
+	fmt.Println()
+}
+
+// Print Traverse Linked List
+func (l *List) Print() {
+	if l.Head == nil {
+		fmt.Println("No nodes in list")
+	}
+	ptr := l.Head
+	for ptr != nil {
+		fmt.Println("Node: ", ptr.Val)
+		ptr = ptr.Next
+	}
+}
+
+func (l *List) Search(val int) int {
+	curr := l.Head
+	for curr != nil {
+		if curr.Val == val {
+			return curr.Val
+		}
+		curr = curr.Next
+	}
+	return -1
+}
+
+func romanToInt(s string) int {
+	result := 0
+	newS := strings.ToUpper(s)
+	length := len(newS)
+	roman := map[string]int{
+		"I": 1,
+		"V": 5,
+		"X": 10,
+		"L": 50,
+		"C": 100,
+		"D": 500,
+		"M": 1000,
+	}
+
+	for i := 0; i < length; i++ {
+		abjad := newS[i : i+1]
+		value := roman[abjad]
+		nextValue := 0
+		if i+1 < length {
+			next := newS[i+1 : i+2]
+			nextValue = roman[next]
+		}
+
+		if nextValue > value {
+			result -= value
+		} else {
+			result += value
+		}
+	}
+	return result
+}
